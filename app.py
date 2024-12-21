@@ -19,7 +19,7 @@ from utils.prompts import get_eat_habbit_prompt
 from utils.ask_gpt import ask_gpt
 
 st.set_page_config(
-    page_title="清华食堂消费年度总结",
+    page_title="2024 华子食堂消费总结",
     page_icon="🍜",
     layout="wide"
 )
