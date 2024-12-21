@@ -46,7 +46,7 @@ def create_stat_card(title, value, location, date, comment, emoji=""):
 
 def main():
     load_css()
-    st.title("🏫 清华食堂消费年度总结")
+    st.title("🍜 2024 清华食堂消费年度总结")
     
     # 更新欢迎页面文案
     st.markdown("""
