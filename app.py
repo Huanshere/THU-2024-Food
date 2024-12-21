@@ -2,6 +2,8 @@ import json
 import os
 import streamlit as st
 from dotenv import load_dotenv
+import matplotlib.pyplot as plt
+import platform
 
 from utils.analyze_data import (
     analyze_patterns,
@@ -44,6 +46,48 @@ def create_stat_card(title, value, location, date, comment, emoji=""):
         </div>
     """
 
+def plot_merchant_spending(df_raw):
+    # Group by merchant name and sum the transaction amounts
+    merchant_spending = df_raw.groupby('mername')['txamt'].sum().sort_values(ascending=True)
+    
+    # Set Chinese font based on platform
+    system = platform.system()
+    if system == 'Darwin':  # macOS
+        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    elif system == 'Linux':
+        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
+    else:  # Windows
+        plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+
+    # Create high-resolution figure
+    plt.figure(figsize=(12, len(merchant_spending) / 66 * 18), dpi=300)
+    
+    # Set higher quality settings
+    plt.rcParams['figure.dpi'] = 300
+    plt.rcParams['savefig.dpi'] = 300
+    plt.rcParams['figure.figsize'] = [12, len(merchant_spending) / 66 * 18]
+    plt.rcParams['figure.autolayout'] = True
+    
+    # Create horizontal bar plot
+    plt.barh(range(len(merchant_spending)), merchant_spending)
+    
+    # Add value labels on the bars with adjusted font size for high DPI
+    for i, value in enumerate(merchant_spending):
+        plt.text(value + 0.01 * max(merchant_spending), i, 
+                f'¥{value:.2f}', va='center', ha='left', fontsize=6)
+    
+    # Customize the plot with adjusted font sizes
+    plt.yticks(range(len(merchant_spending)), merchant_spending.index, fontsize=8)
+    plt.xlabel('消费金额（元）', fontsize=10)
+    plt.title('各窗口消费总额', fontsize=12)
+    plt.xlim(0, 1.2 * max(merchant_spending))
+    
+    # Adjust layout to prevent label cutoff
+    plt.tight_layout()
+    
+    return plt.gcf()
+
 def main():
     load_css()
     st.title("🍜 2024 清华食堂消费年度总结")
@@ -74,7 +118,7 @@ def main():
                 return
 
             # First spinner for data fetching
-            with st.spinner("正在获取数据，请稍候..."):
+            with st.spinner("正在获取数据，��稍候..."):
                 try:
                     data = get_record(servicehall, idserial) if not TEST_MODE else json.load(open("log.json", "r", encoding='utf-8'))
                     df_raw, df = process_data(data)
@@ -150,7 +194,7 @@ def main():
                     st.markdown("", unsafe_allow_html=True)
 
                     # 4. 最逆天的记录
-                    st.subheader("🌟 探险里程碑")
+                    st.subheader("🤡 最逆天的一餐")
                     earliest, latest = get_time_bounds(df)
                     most_expensive = get_max_cost(df)
                     
@@ -203,6 +247,12 @@ def main():
                             unsafe_allow_html=True
                         )
                     st.markdown("", unsafe_allow_html=True)
+
+                    # Add this section where you want to display the plot
+                    st.subheader("💰 细细细则")
+                    fig = plot_merchant_spending(df_raw)
+                    st.pyplot(fig)
+                    plt.close()
 
                 except Exception as e:
                     st.error(f"❌ 生成报告时出现错误: {str(e)}")
