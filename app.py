@@ -59,7 +59,7 @@ def main():
     with st.form("user_input"):
         st.subheader("🔑 请出示你的美食探员证件")
         idserial = st.text_input("学号")
-        servicehall = st.text_input("Cookie中的servicehall")
+        servicehall = st.text_input("Cookie中的servicehall", help="如何获取？参考 https://github.com/Huanshere/THU-2024-Food")
         submitted = st.form_submit_button("开启美食档案 🚀")
 
         if TEST_MODE:
