@@ -29,7 +29,9 @@
 
 ## 本地部署
 
-如果你想在本地运行本项目，请按以下步骤操作：
+你可以选择以下两种方式部署本项目：
+
+### 方式一：使用 Conda
 
 1. 下载源码
 2. 创建并激活 conda 环境：
@@ -51,8 +53,26 @@ cp .env.example .env
 
 5. 运行应用：
 ```bash
-streamlit run app.py
+streamlit run st.py
 ```
+
+### 方式二：使用 Docker
+
+1. 下载源码
+
+2. 构建并运行：
+```bash
+docker build -t thu2024-food .
+docker run -p 3000:3000 --env-file .env thu2024-food
+```
+
+3. 设置环境变量：
+```bash
+cp .env.example .env
+```
+编辑 `.env` 文件，填入必要的 API 信息
+
+4. 访问 http://localhost:3000 即可使用。
 
 ## LICENSE
 
