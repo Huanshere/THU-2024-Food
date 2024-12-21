@@ -16,8 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Expose the port that will be provided by Zeabur
-EXPOSE $PORT
+# Expose port 3000 as default
+EXPOSE 3000
 
-# Command to run the application
-CMD streamlit run st.py --server.port=$PORT --server.address=0.0.0.0
+# Command to run the application with default port 3000
+CMD streamlit run st.py --server.port=${PORT:-3000} --server.address=0.0.0.0
