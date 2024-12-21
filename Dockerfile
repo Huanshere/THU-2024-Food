@@ -16,8 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Expose the port Streamlit runs on
-EXPOSE 8080
+# Expose the port that will be provided by Zeabur
+EXPOSE $PORT
 
 # Command to run the application
-CMD ["streamlit", "run", "st.py", "--server.address=0.0.0.0:8080"]
+CMD streamlit run st.py --server.port=$PORT --server.address=0.0.0.0
