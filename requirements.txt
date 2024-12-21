@@ -1,0 +1,9 @@
+openai
+python-dotenv
+streamlit
+streamlit-shadcn-ui
+pycryptodome
+matplotlib
+pandas
+scikit-learn
+requests

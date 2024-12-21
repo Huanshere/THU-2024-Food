@@ -1,3 +1,6 @@
+.web
+assets/external/
+*.db
 # User data
 config.json
 result.png
@@ -173,3 +176,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+.env
+.DS_Store
