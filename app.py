@@ -55,7 +55,7 @@ def plot_merchant_spending(df_raw):
     if system == 'Darwin':  # macOS
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     elif system == 'Linux':
-        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
+        plt.rcParams['font.sans-serif'] = ['Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK TC']
     else:  # Windows
         plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
@@ -92,7 +92,7 @@ def main():
     load_css()
     st.title("🍜 2024 华子食堂消费总结")
     
-    # 更新欢迎页面文案
+    # 更���欢迎页面文案
     st.markdown("""
     
     👋 这是一个专门为华子吃货们打造的 2024 年度美食档案！
@@ -117,7 +117,7 @@ def main():
                 return
 
             # First spinner for data fetching
-            with st.spinner("正在获取数据，��稍候..."):
+            with st.spinner("正在获取数据，请稍候..."):
                 try:
                     data = get_record(servicehall, idserial) if not TEST_MODE else json.load(open("log.json", "r", encoding='utf-8'))
                     df_raw, df = process_data(data)
