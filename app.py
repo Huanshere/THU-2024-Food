@@ -55,31 +55,9 @@ def plot_merchant_spending(df_raw):
     if system == 'Darwin':  # macOS
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     elif system == 'Linux':
-        # Try Noto fonts first, then fallback to others
-        chinese_fonts = [
-            'Noto Sans CJK SC',
-            'Noto Sans CJK TC',
-            'Noto Sans CJK JP',
-            'WenQuanYi Micro Hei',
-            'Droid Sans Fallback',
-            'DejaVu Sans'
-        ]
-        
-        font_found = False
-        for font in chinese_fonts:
-            try:
-                plt.rcParams['font.sans-serif'] = [font]
-                plt.figure(figsize=(1, 1))
-                plt.text(0.5, 0.5, '测试')
-                plt.close()
-                font_found = True
-                st.success(f"使用字体: {font}")
-                break
-            except:
-                continue
+        plt.rcParams['font.family'] = ['Droid Sans Fallback', 'DejaVu Sans']
     else:  # Windows
         plt.rcParams['font.sans-serif'] = ['SimHei']
-
     plt.rcParams['axes.unicode_minus'] = False
 
     # Create high-resolution figure
