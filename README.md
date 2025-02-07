@@ -11,10 +11,6 @@
 ![demo](./demo.png)
 ![demo2](./demo2.png)
 
-## 在线访问 👉 [https://thu2024.food](https://thu2024.food)
-
-> 注意，本项目不保存任何个人隐私信息，在使用前需要自行登录华清大学校园卡网站，获取服务代码。
-
 ### 获取服务代码
 
 首先，登录校园卡账号后，在[华清大学校园卡网站](https://card.tsinghua.edu.cn/userselftrade)获取你的服务代码。
